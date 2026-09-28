@@ -1,8 +1,8 @@
-# Hotel Booking System Architecture
+# StaySphere Architecture
 
 ## Architecture Style
 
-The Hotel Booking System uses a microservices architecture.
+StaySphere uses a microservices architecture.
 
 ## Frontend
 
@@ -18,7 +18,7 @@ React.js provides:
 
 ## API Gateway
 
-The API Gateway acts as the single entry point for frontend API requests.
+The API Gateway is the main entry point for frontend API requests.
 
 ## Business Microservices
 
@@ -26,9 +26,10 @@ The API Gateway acts as the single entry point for frontend API requests.
 
 Responsible for:
 
-- User registration
+- Registration
 - Login
 - JWT
+- Spring Security
 - Authorization
 - Refresh tokens
 - Password reset
@@ -40,23 +41,24 @@ Responsible for:
 - Hotels
 - Rooms
 - Amenities
-- Room pricing
-- Room availability
+- Pricing
+- Availability
 
 ### Booking Service
 
 Responsible for:
 
 - Booking creation
-- Booking lifecycle
 - Room allocation
-- Booking cancellation
+- Booking lifecycle
+- Cancellation
+- Booking history
 
 ### Payment Service
 
 Responsible for:
 
-- Payment order creation
+- Razorpay order creation
 - Payment verification
 - Payment status
 - Refund processing
@@ -67,24 +69,24 @@ Responsible for:
 
 - Coupon creation
 - Coupon validation
+- Discount calculation
 - Coupon usage
 
 ### Notification Service
 
 Responsible for:
 
-- Email notifications
-- SMS notifications
+- Email
+- SMS
+- Booking notifications
+- Payment notifications
+- Invoice notifications
 
 ## Infrastructure
 
-### Service Registry
-
-Provides service discovery.
-
-### Config Server
-
-Provides centralized configuration.
+- Service Registry
+- Config Server
+- Redis
 
 ## Database
 
