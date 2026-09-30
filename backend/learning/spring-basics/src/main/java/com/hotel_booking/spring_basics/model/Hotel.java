@@ -1,17 +1,27 @@
 package com.hotel_booking.spring_basics.model;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "hotels")
 public class Hotel {
   
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String name;
+
   private String city;
+
   private double pricePerNight;
 
   public Hotel() {
 
   }
   
-  public Hotel(Long id, String name, String city, double pricePerNight) {
+  public Hotel(Long id, String name, String city, Double pricePerNight) {
     this.id = id;
     this.name = name;
     this.city = city;

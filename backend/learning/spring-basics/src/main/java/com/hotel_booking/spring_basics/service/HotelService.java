@@ -1,38 +1,80 @@
 package com.hotel_booking.spring_basics.service;
 
+import com.hotel_booking.spring_basics.dto.HotelRequest;
 import com.hotel_booking.spring_basics.exception.HotelNotFoundException;
 import com.hotel_booking.spring_basics.model.Hotel;
+import com.hotel_booking.spring_basics.repository.HotelRepository;
+
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-@Service 
+@Service
 public class HotelService {
 
-  private final List<Hotel> hotels = new ArrayList<>();
+  private final HotelRepository hotelRepository;
 
-  public List<Hotel> getAllHotels()
-  {
-    return hotels;
+  public HotelService(HotelRepository hotelRepository) {
+    this.hotelRepository = hotelRepository;
+  }
+
+  public List<Hotel> getAllHotels() {
+    return hotelRepository.findAll();
+  }
+
+  public Hotel createHotel(HotelRequest request) {
+    Hotel hotel = new Hotel();
+
+    hotel.setName(request.getName());
+    hotel.setCity(request.getCity());
+    hotel.setPricePerNight(request.getPricePerNight());
+
+    return hotelRepository.save(hotel);
+  }
+
+  //   public Hotel getHotelById(Long id) {
+
+  //     return hotels.stream()
+  //             .filter(hotel -> hotel.getId().equals(id))
+  //             .findFirst()
+  //             .orElseThrow(() ->
+  //                     new HotelNotFoundException(
+  //                             "Hotel not found with id: " + id
+  //                     )
+  //             );
+  // }
+  public Hotel getHotelById(Long id) {
+    return hotelRepository.findById(id)
+        .orElseThrow(() -> new HotelNotFoundException("Hotel not found with id: " + id));
   }
   
-  public Hotel createHotel(Hotel hotel) {
-    hotel.setId((long) (hotels.size() + 1));
-    hotels.add(hotel);
+  public void deleteHotel(Long id) {
 
-    return hotel;
+    if (!hotelRepository.existsById(id)) {
+      throw new HotelNotFoundException(
+          "Hotel not found with id: " + id);
+    }
+
+    hotelRepository.deleteById(id);
+
   }
+  
+   public Hotel updateHotel(
+        Long id,
+       HotelRequest request) {
 
-  public Hotel getHotelById(Long id) {
+     Hotel hotel = hotelRepository.findById(id)
+         .orElseThrow(() -> new HotelNotFoundException(
+             "Hotel not found with id: " + id));
 
-    return hotels.stream()
-            .filter(hotel -> hotel.getId().equals(id))
-            .findFirst()
-            .orElseThrow(() ->
-                    new HotelNotFoundException(
-                            "Hotel not found with id: " + id
-                    )
-            );
-}
+     hotel.setName(request.getName());
+     hotel.setCity(request.getCity());
+     hotel.setPricePerNight(request.getPricePerNight());
+
+     return hotelRepository.save(hotel);
+
+   }
+  
+   
 }
