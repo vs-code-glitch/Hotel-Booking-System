@@ -1,5 +1,7 @@
 package com.hotel_booking.spring_basics.controller;
 
+import jakarta.validation.Valid;
+
 import com.hotel_booking.spring_basics.model.Hotel;
 import com.hotel_booking.spring_basics.service.HotelService;
 import org.springframework.web.bind.annotation.GetMapping;
